@@ -1,22 +1,13 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import thunk from 'redux-thunk';
-import { createStore, applyMiddleware, combineReducers  } from 'redux';
+import { createStore, applyMiddleware  } from 'redux';
+import reducers from './reducers'
 
 
 const createStoreWithMiddleware = applyMiddleware(thunk)(createStore);
-let reducer = function(state = [], actions){
-  if(actions){
-    if(actions.type == "FETCH_BEAR"){
-      return actions.payload
-    }
-  }
-  return state;
-}
 
-let store = createStoreWithMiddleware(combineReducers({
-  bear:reducer
-}));
+let store = createStoreWithMiddleware(reducers);
 
 let fetchBear = function() {
   return (dispatch) => {
