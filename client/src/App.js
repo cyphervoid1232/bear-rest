@@ -1,6 +1,30 @@
 import React, { Component } from 'react';
-import axios from 'axios'
+import axios from 'axios';
+import thunk from 'redux-thunk';
+import { createStore, applyMiddleware } from 'redux';
 
+
+const createStoreWithMiddleware = applyMiddleware(thunk)(createStore);
+let reducer = function(state = [], actions){
+  if(actions){
+    if(actions.type == "FETCH_BEAR"){
+      return actions.payload
+    }
+  }
+  return state;
+}
+
+let store = createStoreWithMiddleware(reducer);
+let fetchBear = function() {
+  return (dispatch) => {
+    axios.get('http://localhost:8000/api/bears')
+    .then( (response) => {
+      dispatch({type:"FETCH_BEAR", payload:response.data});
+      })
+      .catch( (error) => {
+      });
+  }
+}
 class App extends Component {
   constructor(props){
     super(props)
@@ -8,13 +32,10 @@ class App extends Component {
   }
 
   componentDidMount(){
-    axios.get('http://localhost:8000/api/bears')
-    .then( (response) => {
-      this.setState({data:response.data});
-      })
-      .catch( (error) => {
-      console.log(error);
-      });
+    store.subscribe(() => {
+      this.setState({data:store.getState()});
+    })
+    store.dispatch(fetchBear());
   }
   
   render() {
