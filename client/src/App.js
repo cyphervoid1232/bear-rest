@@ -1,24 +1,13 @@
 import React, { Component } from 'react';
-import axios from 'axios';
 import thunk from 'redux-thunk';
 import { createStore, applyMiddleware  } from 'redux';
 import reducers from './reducers'
+import {fetchBear} from './actions'
 
 
 const createStoreWithMiddleware = applyMiddleware(thunk)(createStore);
 
 let store = createStoreWithMiddleware(reducers);
-
-let fetchBear = function() {
-  return (dispatch) => {
-    axios.get('http://localhost:8000/api/bears')
-    .then( (response) => {
-      dispatch({type:"FETCH_BEAR", payload:response.data});
-      })
-      .catch( (error) => {
-      });
-  }
-}
 
 class App extends Component {
   constructor(props){
