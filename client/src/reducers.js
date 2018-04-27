@@ -9,6 +9,10 @@ let reducers = function(state = [], actions){
       console.log('delete')
       return actions.payload
     }
+    if(actions.type === "ADD_BEAR") {
+      console.log("add")
+      
+    }
   }
   return state;
 }

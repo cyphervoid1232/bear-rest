@@ -20,3 +20,15 @@ export const deleteBear = function(id) {
     })
   }
 }
+
+export const addBear = function(name) {
+  return (dispatch) => {
+    axios.post(`http://localhost:8000/api/bears/`,{
+      name
+    })
+    .then((res) => {
+      return fetchBear()(dispatch)
+    })
+    
+  }
+}
