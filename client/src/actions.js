@@ -10,3 +10,13 @@ export const fetchBear = function() {
       });
   }
 }
+
+export const deleteBear = function(id) {
+  console.log(id)
+  return (dispatch) => {
+    axios.delete(`http://localhost:8000/api/bears/${id}`)
+    .then((res) => {
+      dispatch({type:"DELETE_BEAR",payload:res.data})
+    })
+  }
+}

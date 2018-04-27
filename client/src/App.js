@@ -1,6 +1,13 @@
 import React, { Component } from 'react';
-import {fetchBear} from './actions'
+import {fetchBear,deleteBear} from './actions'
 import {connect} from 'react-redux'
+
+const Bear = ({id,name,handleDelete}) => (
+  <div>
+    {name}
+    <button onClick={() => handleDelete(id)}>delete</button>
+  </div>
+)
 
 class App extends Component {
   constructor(props){
@@ -12,12 +19,16 @@ class App extends Component {
     this.props.fetchBear()
   }
 
+  handleDelete = (id) =>{
+    this.props.deleteBear(id)
+  }
+
   render() {
     let bears = this.props.bears;
     return (
       <div>
       {
-        bears.map(bear => (<div key={bear.id}>{bear.name}</div>))
+        bears.map(bear => <Bear {...bear} handleDelete={this.handleDelete}/>)
       }
       </div>
     );
@@ -33,7 +44,8 @@ const  mapStateToProps = (state) =>{
 
  const mapDispatchToProps = (dispatch) => {
     return {
-      fetchBear : () => dispatch(fetchBear())
+      fetchBear : () => dispatch(fetchBear()),
+      deleteBear : (id) => dispatch(deleteBear(id))
     }
   }
   
