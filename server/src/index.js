@@ -13,6 +13,15 @@ router.route('/bears')
     .get(function(req,res) {
         res.json(bears);
     })
+    .delete(function(req,res) {
+        console.log(req.body.id)
+        bears = bears.filter((data) => {
+            console.log(data.id)
+            console.log(data.id != req.body.id)
+            return data.id != req.body.id
+        })
+        res.json(bears)
+    })
     .post(function(req, res) {
         var bear = {};
         bear.name = req.body.name;
