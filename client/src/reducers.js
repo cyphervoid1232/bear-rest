@@ -2,7 +2,7 @@ import { combineReducers  } from 'redux';
 
 let reducers = function(state = [], actions){
   if(actions){
-    if(actions.type == "FETCH_BEAR"){
+    if(actions.type === "FETCH_BEAR"){
       return actions.payload
     }
   }

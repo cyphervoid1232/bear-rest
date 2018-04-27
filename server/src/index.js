@@ -6,7 +6,8 @@ var cors = require('cors');
 var bears = [
     {id:'1', name:"JJ"},
     {id:'2', name:"Chatarin"},
-    {id:'3', name:"Eiei"}
+    {id:'3', name:"Eiei"},
+    {id:'4', name:"Oat"}
 ];
 router.route('/bears')
     .get(function(req,res) {
